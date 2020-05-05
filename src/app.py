@@ -1,4 +1,4 @@
-import requests, os, json
+import requests, os, json, sys
 
 #### TO RUN:  pipenv run python src/app.py
 
@@ -21,7 +21,12 @@ def sync_word(_user_response, _permission):                 # opens and reads th
         return text_file.read()
     text_file.close()    
 
-user_response = input("What term do you want to look for?  ")
+user_response = ""
+
+if (len(sys.argv) == 1):           ### Equal to 1, means no variable was specified
+    user_response = input("What term do you want to look for?  ")
+else:
+    user_response = sys.argv[1]
 
 if os.path.isfile("./src/" + user_response + ".txt"):           # removed if user_path == , as the isfile will give a true/false anyway
     print("fetching from cache")
